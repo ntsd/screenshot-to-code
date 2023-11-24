@@ -35,7 +35,7 @@ const rejectStyle = {
   borderColor: "#ff1744",
 };
 
-// TODO: Move to a seperate file
+// TODO: Move to a separate file
 function fileToDataURL(file: File) {
   return new Promise((resolve, reject) => {
     const reader = new FileReader();
@@ -106,7 +106,9 @@ function ImageUpload({ setReferenceImages }: Props) {
       // Convert images to data URLs and set the prompt images state
       Promise.all(files.map((file) => fileToDataURL(file)))
         .then((dataUrls) => {
-          setReferenceImages(dataUrls.map((dataUrl) => dataUrl as string));
+          if(dataUrls.length > 0) {
+            setReferenceImages(dataUrls.map((dataUrl) => dataUrl as string));
+          }
         })
         .catch((error) => {
           // TODO: Display error to user

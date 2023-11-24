@@ -1,5 +1,6 @@
 # Load environment variables first
 from dotenv import load_dotenv
+from pydantic import BaseModel
 
 load_dotenv()
 
@@ -9,17 +10,34 @@ import os
 import traceback
 from datetime import datetime
 from fastapi import FastAPI, WebSocket
-
+from fastapi.middleware.cors import CORSMiddleware
 from llm import stream_openai_response
 from mock import mock_completion
 from image_generation import create_alt_url_mapping, generate_images
 from prompts import assemble_prompt
+from routes import screenshot
 
-app = FastAPI()
+app = FastAPI(openapi_url=None, docs_url=None, redoc_url=None)
+
+# Configure CORS
+
+# Configure CORS settings
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
 
 # Useful for debugging purposes when you don't want to waste GPT4-Vision credits
 # Setting to True will stream a mock response instead of calling the OpenAI API
-SHOULD_MOCK_AI_RESPONSE = False
+# TODO: Should only be set to true when value is 'True', not any abitrary truthy value
+SHOULD_MOCK_AI_RESPONSE = bool(os.environ.get("MOCK", False))
+
+
+app.include_router(screenshot.router)
 
 
 def write_logs(prompt_messages, completion):
@@ -42,7 +60,7 @@ def write_logs(prompt_messages, completion):
 
 
 @app.websocket("/generate-code")
-async def stream_code_test(websocket: WebSocket):
+async def stream_code(websocket: WebSocket):
     await websocket.accept()
 
     params = await websocket.receive_json()
@@ -79,7 +97,10 @@ async def stream_code_test(websocket: WebSocket):
     async def process_chunk(content):
         await websocket.send_json({"type": "chunk", "value": content})
 
-    prompt_messages = assemble_prompt(params["image"])
+    if params.get("resultImage") and params["resultImage"]:
+        prompt_messages = assemble_prompt(params["image"], params["resultImage"])
+    else:
+        prompt_messages = assemble_prompt(params["image"])
 
     # Image cache for updates so that we don't have to regenerate images
     image_cache = {}
