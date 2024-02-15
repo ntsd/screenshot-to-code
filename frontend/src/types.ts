@@ -6,6 +6,7 @@ export enum EditorTheme {
 // Keep in sync with backend (prompts.py)
 export enum GeneratedCodeConfig {
   HTML_TAILWIND = "html_tailwind",
+  HTML_TAILWIND_DAISYUI = "html_tailwind_daisyui",
   REACT_TAILWIND = "react_tailwind",
   BOOTSTRAP = "bootstrap",
   IONIC_TAILWIND = "ionic_tailwind",

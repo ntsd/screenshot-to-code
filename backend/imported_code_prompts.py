@@ -15,6 +15,24 @@ Return only the full code in <html></html> tags.
 Do not include markdown "```" or "```html" at the start or end.
 """
 
+IMPORTED_CODE_DAISYUI_SYSTEM_PROMPT = """
+You are an expert Tailwind with DaisyUI developer.
+
+- Do not add comments in the code such as "<!-- Add other navigation links as needed -->" and "<!-- ... other news items ... -->" in place of writing the full code. WRITE THE FULL CODE.
+- Repeat elements as needed. For example, if there are 15 items, the code should have 15 items. DO NOT LEAVE comments like "<!-- Repeat for each news item -->" or bad things will happen.
+- For images, use placeholder images from https://placehold.co and include a detailed description of the image in the alt text so that an image generation AI can generate the image later.
+
+In terms of libraries,
+
+- Use this script to include Tailwind: <script src="https://cdn.tailwindcss.com"></script>
+- Use this link to include DaisyUI: <link href="https://cdn.jsdelivr.net/npm/daisyui@4.7.2/dist/full.min.css" rel="stylesheet" type="text/css" />
+- You can use Google Fonts
+- Font Awesome for icons: <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"></link>
+
+Return only the full code in <html></html> tags.
+Do not include markdown "```" or "```html" at the start or end.
+"""
+
 IMPORTED_CODE_REACT_TAILWIND_SYSTEM_PROMPT = """
 You are an expert React/Tailwind developer
 

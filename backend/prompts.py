@@ -7,12 +7,14 @@ from imported_code_prompts import (
     IMPORTED_CODE_IONIC_TAILWIND_SYSTEM_PROMPT,
     IMPORTED_CODE_REACT_TAILWIND_SYSTEM_PROMPT,
     IMPORTED_CODE_TAILWIND_SYSTEM_PROMPT,
+    IMPORTED_CODE_DAISYUI_SYSTEM_PROMPT,
     IMPORTED_CODE_SVG_SYSTEM_PROMPT,
 )
 from screenshot_system_prompts import (
     BOOTSTRAP_SYSTEM_PROMPT,
     IONIC_TAILWIND_SYSTEM_PROMPT,
     REACT_TAILWIND_SYSTEM_PROMPT,
+    DAISYUI_SYSTEM_PROMPT,
     TAILWIND_SYSTEM_PROMPT,
     SVG_SYSTEM_PROMPT,
 )
@@ -33,6 +35,8 @@ def assemble_imported_code_prompt(
     system_content = IMPORTED_CODE_TAILWIND_SYSTEM_PROMPT
     if stack == "html_tailwind":
         system_content = IMPORTED_CODE_TAILWIND_SYSTEM_PROMPT
+    if stack == "html_tailwind_daisyui":
+        system_content = IMPORTED_CODE_DAISYUI_SYSTEM_PROMPT
     elif stack == "react_tailwind":
         system_content = IMPORTED_CODE_REACT_TAILWIND_SYSTEM_PROMPT
     elif stack == "bootstrap":
@@ -71,6 +75,8 @@ def assemble_prompt(
     system_content = TAILWIND_SYSTEM_PROMPT
     if generated_code_config == "html_tailwind":
         system_content = TAILWIND_SYSTEM_PROMPT
+    if generated_code_config == "html_tailwind_daisyui":
+        system_content = DAISYUI_SYSTEM_PROMPT
     elif generated_code_config == "react_tailwind":
         system_content = REACT_TAILWIND_SYSTEM_PROMPT
     elif generated_code_config == "bootstrap":

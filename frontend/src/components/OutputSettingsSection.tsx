@@ -17,6 +17,13 @@ function generateDisplayComponent(config: GeneratedCodeConfig) {
           <span className="font-semibold">Tailwind</span>
         </div>
       );
+    case GeneratedCodeConfig.HTML_TAILWIND_DAISYUI:
+      return (
+        <div>
+          <span className="font-semibold">HTML</span> +{" "}
+          <span className="font-semibold">Tailwind+DaisyUI</span>
+        </div>
+      );
     case GeneratedCodeConfig.REACT_TAILWIND:
       return (
         <div>
@@ -83,6 +90,11 @@ function OutputSettingsSection({
             <SelectGroup>
               <SelectItem value={GeneratedCodeConfig.HTML_TAILWIND}>
                 {generateDisplayComponent(GeneratedCodeConfig.HTML_TAILWIND)}
+              </SelectItem>
+              <SelectItem value={GeneratedCodeConfig.HTML_TAILWIND_DAISYUI}>
+                {generateDisplayComponent(
+                  GeneratedCodeConfig.HTML_TAILWIND_DAISYUI
+                )}
               </SelectItem>
               <SelectItem value={GeneratedCodeConfig.REACT_TAILWIND}>
                 {generateDisplayComponent(GeneratedCodeConfig.REACT_TAILWIND)}
